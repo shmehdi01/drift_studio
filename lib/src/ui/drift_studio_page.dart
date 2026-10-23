@@ -26,6 +26,7 @@ class DriftStudio extends StatefulWidget {
     super.key,
     required GeneratedDatabase database,
     this.config = const DriftStudioConfig(),
+    this.initialTable,
   }) : source = DriftStudioDataSource(database);
 
   /// Opens the studio on any [StudioDataSource] (sqflite, sqlite3, …).
@@ -33,6 +34,7 @@ class DriftStudio extends StatefulWidget {
     super.key,
     required this.source,
     this.config = const DriftStudioConfig(),
+    this.initialTable,
   });
 
   /// The database being inspected.
@@ -41,14 +43,22 @@ class DriftStudio extends StatefulWidget {
   /// Behaviour and content options.
   final DriftStudioConfig config;
 
+  /// Table or view to open first, e.g. when deep-linking from a sync screen.
+  final String? initialTable;
+
   /// Pushes the studio as a new route.
   static Future<void> open(
     BuildContext context,
     GeneratedDatabase database, {
     DriftStudioConfig config = const DriftStudioConfig(),
+    String? initialTable,
   }) =>
       Navigator.of(context).push(MaterialPageRoute<void>(
-        builder: (_) => DriftStudio(database: database, config: config),
+        builder: (_) => DriftStudio(
+          database: database,
+          config: config,
+          initialTable: initialTable,
+        ),
       ));
 
   @override
@@ -59,6 +69,7 @@ class _DriftStudioState extends State<DriftStudio> {
   late final StudioController _controller = StudioController(
     source: widget.source,
     config: widget.config,
+    initialTable: widget.initialTable,
   );
   final _scaffold = GlobalKey<ScaffoldState>();
 

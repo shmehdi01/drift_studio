@@ -10,3 +10,4 @@ Initial release.
 - SQL console with syntax highlighting, schema- and alias-aware autocomplete, keyboard shortcuts, multi-statement scripts, read-only guard, write confirmation, history, saved queries, built-in templates and app-provided presets.
 - Export results as CSV, JSON, Markdown or INSERT statements.
 - Works with any SQLite binding through `StudioDataSource`.
+- `initialTable` opens the studio on a specific table.

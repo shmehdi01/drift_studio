@@ -27,8 +27,11 @@ enum StudioPane {
 /// the per-table controllers.
 class StudioController extends ChangeNotifier {
   /// Creates the controller and starts loading the catalog.
-  StudioController({required this.source, required this.config})
-      : inspector = SchemaInspector(source) {
+  StudioController({
+    required this.source,
+    required this.config,
+    this.initialTable,
+  }) : inspector = SchemaInspector(source) {
     console = SqlConsoleController(
       source: source,
       config: config,
@@ -42,6 +45,10 @@ class StudioController extends ChangeNotifier {
 
   /// Studio options.
   final DriftStudioConfig config;
+
+  /// Table or view selected on first load; falls back to the first table
+  /// when it doesn't exist.
+  final String? initialTable;
 
   /// Catalog reader.
   final SchemaInspector inspector;
@@ -157,7 +164,10 @@ class StudioController extends ChangeNotifier {
         _selected =
             _objects.where((o) => o.name == _selected!.name).firstOrNull;
       }
-      _selected ??= visibleObjects(DbObjectType.table).firstOrNull ??
+      _selected ??= _objects
+              .where((o) => o.isBrowsable && o.name == initialTable)
+              .firstOrNull ??
+          visibleObjects(DbObjectType.table).firstOrNull ??
           visibleObjects(DbObjectType.view).firstOrNull;
     } catch (e) {
       _error = e;

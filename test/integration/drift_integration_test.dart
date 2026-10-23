@@ -158,4 +158,25 @@ void main() {
     expect(studio.templateColumnOf('customers'), 'name');
     studio.dispose();
   });
+
+  test('initialTable preselects that table, falling back when unknown',
+      () async {
+    final studio = StudioController(
+      source: source,
+      config: const DriftStudioConfig(),
+      initialTable: 'orders',
+    );
+    await studio.load();
+    expect(studio.selected?.name, 'orders');
+    studio.dispose();
+
+    final fallback = StudioController(
+      source: source,
+      config: const DriftStudioConfig(),
+      initialTable: 'missing',
+    );
+    await fallback.load();
+    expect(fallback.selected?.name, 'customers');
+    fallback.dispose();
+  });
 }
