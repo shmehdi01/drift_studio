@@ -1,0 +1,43 @@
+name: drift_studio
+description: >-
+  A professional, in-app database studio for Drift (SQLite) databases.
+  Searchable table explorer, filterable and sortable data grid, schema
+  inspector, and a SQL console with autocomplete, snippets and saved queries.
+version: 0.1.0
+repository: https://github.com/shmehdi01/drift_studio
+issue_tracker: https://github.com/shmehdi01/drift_studio/issues
+topics:
+  - drift
+  - sqlite
+  - database
+  - debugging
+  - devtools
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  drift: ^2.20.0
+  two_dimensional_scrollables: ">=0.3.0 <0.6.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  sqlite3: ">=2.4.0 <4.0.0"
+
+
+screenshots:
+  - description: Data grid with sorting, paging and the object explorer.
+    path: doc/screenshots/1_data_grid.png
+  - description: Row inspector with JSON formatting and foreign-key navigation.
+    path: doc/screenshots/2_row_inspector.png
+  - description: Table structure — columns, indexes, foreign keys and DDL.
+    path: doc/screenshots/3_structure.png
+  - description: SQL console with autocomplete, snippets and results.
+    path: doc/screenshots/4_sql_console.png
+  - description: Phone layout.
+    path: doc/screenshots/5_phone.png
